@@ -43,9 +43,8 @@ public class Main {
             System.out.println();
             Building b2 = (Building) b1.clone();
             System.out.println(b2);
-            System.out.println();
+            System.out.println(b1.equals(b2));
 
-            b1.setFloor(0, fl4);
 
             //b1.setFloor(0,fl3);
             System.out.println(b1);
