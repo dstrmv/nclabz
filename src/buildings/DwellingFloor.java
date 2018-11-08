@@ -142,7 +142,7 @@ public class DwellingFloor implements Floor, Serializable, Cloneable {
     @Override
     public Object clone() throws CloneNotSupportedException {
         DwellingFloor df = (DwellingFloor) super.clone();
-        df.spaces = new Space[spacesAmount()];
+        df.spaces = this.spaces.clone();
         for (int i = 0; i < df.spacesAmount(); i++) {
             df.spaces[i] = (Space) this.spaces[i].clone();
         }

@@ -22,13 +22,13 @@ public class Main {
             offices3[i] = new Office(1000000*i + 0.1, i + 1000000);
         }
 
-        Floor fl = new OfficeFloor(offices);
+        Floor fl = new DwellingFloor(offices);
         Floor fl2 = new OfficeFloor(offices2);
         Floor fl3 = new OfficeFloor(offices3);
 
         Floor[] floors = {fl, fl2, fl3};
 
-        Building b1 = new OfficeBuilding(floors);
+        Building b1 = new Dwelling(floors);
 
         Flat flat = new Flat(1.1, 1);
         Flat flat2 = new Flat(2.2, 2);
@@ -38,7 +38,6 @@ public class Main {
 
         try {
 
-
             System.out.println(b1);
             System.out.println();
             Building b2 = (Building) b1.clone();
@@ -46,7 +45,7 @@ public class Main {
             System.out.println(b1.equals(b2));
 
 
-            //b1.setFloor(0,fl3);
+            b1.setSpace(0,new Flat(123,123));
             System.out.println(b1);
             System.out.println(b2);
 
