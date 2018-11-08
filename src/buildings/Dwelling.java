@@ -197,7 +197,12 @@ public class Dwelling implements Building, Serializable, Cloneable {
 
     @Override
     public Object clone() throws CloneNotSupportedException {
-        return null;
+        Dwelling dwelling = (Dwelling) super.clone();
+        dwelling.floors = this.floors.clone();
+        for (int i = 0; i < floors.length; i++) {
+            dwelling.floors[i] = (Floor) this.floors[i].clone();
+        }
+        return dwelling;
     }
 
     @Override

@@ -216,10 +216,14 @@ public class OfficeFloor implements Floor, Serializable, Cloneable {
 
     @Override
     public Object clone() throws CloneNotSupportedException {
-        return super.clone();
+        OfficeFloor of = (OfficeFloor) super.clone();
+        //for (int i = 0; i < size; i++) {
+            of.head = (Node) this.head.clone();
+        //}
+        return of;
     }
 
-    private class Node implements Serializable {
+    private class Node implements Serializable, Cloneable {
 
         private Space content;
         private Node next;
@@ -237,6 +241,16 @@ public class OfficeFloor implements Floor, Serializable, Cloneable {
         Node(Space content) {
             this.content = content;
             this.next = null;
+        }
+
+        //TODO exit from recursion
+        @Override
+        protected Object clone() throws CloneNotSupportedException {
+
+            Node node = (Node) super.clone();
+            node.content = (Space) this.content.clone();
+            node.next = (Node) this.next.clone();
+            return node;
         }
     }
 }
