@@ -33,7 +33,8 @@ public class OfficeFloor implements Floor, Serializable, Cloneable {
             return;
         }
 
-        head = new Node(spaces[0], head);
+        head = new Node(spaces[0]);
+        head.next = head;
         Node buffer = head;
 
         for (int i = 1; i < spaces.length; i++) {
@@ -218,7 +219,7 @@ public class OfficeFloor implements Floor, Serializable, Cloneable {
     public Object clone() throws CloneNotSupportedException {
         OfficeFloor of = (OfficeFloor) super.clone();
         //for (int i = 0; i < size; i++) {
-            of.head = (Node) this.head.clone();
+        of.head = (Node) this.head.clone();
         //}
         return of;
     }
@@ -243,11 +244,13 @@ public class OfficeFloor implements Floor, Serializable, Cloneable {
             this.next = null;
         }
 
-        //TODO exit from recursion
         @Override
         protected Object clone() throws CloneNotSupportedException {
 
             Node node = (Node) super.clone();
+            if (this.next == head) {
+                return node;
+            }
             node.content = (Space) this.content.clone();
             node.next = (Node) this.next.clone();
             return node;

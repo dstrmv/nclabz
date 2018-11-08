@@ -5,7 +5,7 @@ import buildings.exceptions.SpaceIndexOutOfBoundsException;
 
 import java.io.Serializable;
 
-public class OfficeBuilding implements Building, Serializable {
+public class OfficeBuilding implements Building, Serializable, Cloneable {
 
     private Node head;
     private int size;
@@ -381,10 +381,12 @@ public class OfficeBuilding implements Building, Serializable {
 
     @Override
     public Object clone() throws CloneNotSupportedException {
-        return null;
+        OfficeBuilding ob = (OfficeBuilding) super.clone();
+        ob.head = (Node) this.head.clone();
+        return ob;
     }
 
-    private class Node implements Serializable {
+    private class Node implements Serializable, Cloneable {
 
         private Floor content;
         private Node prev;
@@ -402,6 +404,23 @@ public class OfficeBuilding implements Building, Serializable {
 
         Node(Floor content) {
             this(content, null, null);
+        }
+
+        @Override
+        protected Object clone() throws CloneNotSupportedException {
+
+            Node node = (Node) super.clone();
+
+            if (this.next == head || this.prev == head) {
+                return node;
+            }
+
+
+
+            node.content = (Floor) this.content.clone();
+            node.next = (Node) this.next.clone();
+            node.prev = (Node) this.prev.clone();
+            return node;
         }
     }
 }
