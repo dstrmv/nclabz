@@ -415,8 +415,6 @@ public class OfficeBuilding implements Building, Serializable, Cloneable {
                 return node;
             }
 
-
-
             node.content = (Floor) this.content.clone();
             node.next = (Node) this.next.clone();
             node.prev = (Node) this.prev.clone();
