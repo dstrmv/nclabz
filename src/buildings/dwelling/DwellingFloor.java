@@ -5,6 +5,7 @@ import buildings.Space;
 import buildings.exceptions.SpaceIndexOutOfBoundsException;
 
 import java.io.Serializable;
+import java.util.Iterator;
 
 public class DwellingFloor implements Floor, Serializable, Cloneable {
 
@@ -149,5 +150,23 @@ public class DwellingFloor implements Floor, Serializable, Cloneable {
             df.spaces[i] = (Space) this.spaces[i].clone();
         }
         return df;
+    }
+
+    @Override
+    public Iterator<Space> iterator() {
+        return new Iterator<Space>() {
+
+            int index = 0;
+
+            @Override
+            public boolean hasNext() {
+                return index < spaces.length;
+            }
+
+            @Override
+            public Space next() {
+                return spaces[index++];
+            }
+        };
     }
 }

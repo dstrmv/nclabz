@@ -73,4 +73,20 @@ public class Hotel extends Dwelling {
         }
         return sb.toString();
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == this) return true;
+        if (obj == null) return false;
+        if (!(obj instanceof Hotel)) return false;
+        Hotel hotel = (Hotel) obj;
+        if (this.getStars() != hotel.getStars()) return false;
+
+        return super.equals(hotel);
+    }
+
+    @Override
+    public int hashCode() {
+        return super.hashCode() ^ this.getStars().value();
+    }
 }

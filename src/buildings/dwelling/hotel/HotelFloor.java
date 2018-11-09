@@ -3,6 +3,8 @@ package buildings.dwelling.hotel;
 import buildings.Space;
 import buildings.dwelling.DwellingFloor;
 
+import java.util.Iterator;
+
 import static buildings.dwelling.hotel.Stars.*;
 
 public class HotelFloor extends DwellingFloor {
@@ -41,4 +43,22 @@ public class HotelFloor extends DwellingFloor {
         }
         return sb.toString();
     }
+
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == this) return true;
+        if (obj == null) return false;
+        if (!(obj instanceof HotelFloor)) return false;
+        HotelFloor hotelFloor = (HotelFloor) obj;
+        if (this.getStars() != hotelFloor.getStars()) return false;
+
+        return super.equals(hotelFloor);
+    }
+
+    @Override
+    public int hashCode() {
+        return super.hashCode() ^ this.getStars().value();
+    }
+
 }

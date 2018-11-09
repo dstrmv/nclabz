@@ -1,6 +1,8 @@
 package buildings;
 
-public interface Building {
+import java.util.Iterator;
+
+public interface Building extends Iterable<Floor> {
 
     int floorsAmount();
 
@@ -29,5 +31,8 @@ public interface Building {
     Space[] spacesSortedByAreaDescending();
 
     Object clone() throws CloneNotSupportedException;
+
+    @Override
+    Iterator<Floor> iterator();
 
 }

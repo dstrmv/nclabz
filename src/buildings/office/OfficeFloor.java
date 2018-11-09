@@ -5,6 +5,8 @@ import buildings.Space;
 import buildings.exceptions.SpaceIndexOutOfBoundsException;
 
 import java.io.Serializable;
+import java.util.Iterator;
+import java.util.NoSuchElementException;
 
 public class OfficeFloor implements Floor, Serializable, Cloneable {
 
@@ -224,6 +226,29 @@ public class OfficeFloor implements Floor, Serializable, Cloneable {
         of.head = (Node) this.head.clone();
         //}
         return of;
+    }
+
+    @Override
+    public Iterator<Space> iterator() {
+        return new Iterator<>() {
+            int index = 0;
+            Node current = head;
+
+            @Override
+            public boolean hasNext() {
+                return index < size;
+            }
+
+            @Override
+            public Space next() {
+
+                Space next;
+                next = current.content;
+                current = current.next;
+                index++;
+                return next;
+            }
+        };
     }
 
     private class Node implements Serializable, Cloneable {

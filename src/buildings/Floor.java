@@ -1,6 +1,8 @@
 package buildings;
 
-public interface Floor  {
+import java.util.Iterator;
+
+public interface Floor extends Iterable<Space> {
 
     int spacesAmount();
 
@@ -22,4 +24,6 @@ public interface Floor  {
 
     Object clone() throws CloneNotSupportedException;
 
+    @Override
+    Iterator<Space> iterator();
 }

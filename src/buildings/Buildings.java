@@ -14,6 +14,12 @@ import java.util.Scanner;
 
 public class Buildings {
 
+    static private BuildingFactory buildingFactory = new DwellingFactory();
+
+    public static void setBuildingFactory(BuildingFactory buildingFactory) {
+        Buildings.buildingFactory = buildingFactory;
+    }
+
     public static void outputBuilding(Building building, OutputStream out) {
         DataOutputStream dataOutputStream = new DataOutputStream(out);
         try {

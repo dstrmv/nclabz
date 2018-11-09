@@ -8,6 +8,7 @@ import buildings.exceptions.FloorIndexOutOfBoundsException;
 import buildings.exceptions.SpaceIndexOutOfBoundsException;
 
 import java.io.Serializable;
+import java.util.Iterator;
 
 public class OfficeBuilding implements Building, Serializable, Cloneable {
 
@@ -388,6 +389,30 @@ public class OfficeBuilding implements Building, Serializable, Cloneable {
         OfficeBuilding ob = (OfficeBuilding) super.clone();
         ob.head = (Node) this.head.clone();
         return ob;
+    }
+
+    @Override
+    public Iterator<Floor> iterator() {
+        return new Iterator<Floor>() {
+
+            int index = 0;
+            Node current = head;
+
+            @Override
+            public boolean hasNext() {
+                return index < size;
+            }
+
+            @Override
+            public Floor next() {
+                Floor next;
+                next = current.content;
+                current = current.next;
+                index++;
+                return next;
+
+            }
+        };
     }
 
     private class Node implements Serializable, Cloneable {
