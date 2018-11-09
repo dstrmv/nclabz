@@ -1,5 +1,6 @@
-package buildings;
+package buildings.office;
 
+import buildings.Space;
 import buildings.exceptions.InvalidRoomsCountException;
 import buildings.exceptions.InvalidSpaceAreaException;
 

@@ -24,7 +24,7 @@ public interface Building {
 
     void deleteSpace(int num);
 
-    Space getBestArea();
+    Space getBestSpace();
 
     Space[] spacesSortedByAreaDescending();
 

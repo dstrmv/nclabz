@@ -1,5 +1,7 @@
-package buildings;
+package buildings.dwelling;
 
+import buildings.Floor;
+import buildings.Space;
 import buildings.exceptions.SpaceIndexOutOfBoundsException;
 
 import java.io.Serializable;
@@ -90,7 +92,7 @@ public class DwellingFloor implements Floor, Serializable, Cloneable {
     }
 
     @Override
-    public Space getBestArea() {
+    public Space getBestSpace() {
         if (spacesAmount() == 0) {
             return null;
         }

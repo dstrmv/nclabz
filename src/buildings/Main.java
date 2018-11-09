@@ -1,57 +1,50 @@
 package buildings;
 
-import buildings.exceptions.InexchangeableFloorsException;
+import buildings.dwelling.Dwelling;
+import buildings.dwelling.DwellingFloor;
+import buildings.dwelling.Flat;
+import buildings.dwelling.hotel.Hotel;
+import buildings.dwelling.hotel.HotelFloor;
+import buildings.dwelling.hotel.Stars;
+import buildings.office.Office;
+import buildings.office.OfficeFloor;
 
-import java.io.*;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.Arrays;
-import java.util.Scanner;
+import java.util.stream.Stream;
 
 public class Main {
 
     public static void main(String[] args) {
 
-        Space[] offices = new Space[5];
-        Space[] offices2 = new Space[5];
-        Space[] offices3 = new Space[5];
+        Space[] flats = new Space[5];
+        Space[] flats2 = new Space[5];
+        Space[] flats3 = new Space[5];
 
-        for (int i = 0; i < offices.length; i++) {
-            offices[i] = new Office(100 * i + 0.1, i + 1); //1
-            offices2[i] = new Flat(10000 * i + 0.1, i + 100);//101
-            offices3[i] = new Office(1000000*i + 0.1, i + 1000000);
+        for (int i = 0; i < flats.length; i++) {
+            flats[i] = new Flat(100 * i + 0.1, i + 1); //1
+            flats2[i] = new Flat(10000 * i + 0.1, i + 100);//101
+            flats3[i] = new Flat(1000000*i + 0.1, i + 1000000);
         }
 
-        Floor fl = new DwellingFloor(offices);
-        Floor fl2 = new OfficeFloor(offices2);
-        Floor fl3 = new OfficeFloor(offices3);
+        Floor fl = new HotelFloor(flats);
+        Floor fl2 = new HotelFloor(flats2);
+        Floor fl3 = new HotelFloor(flats3);
+
+        ((HotelFloor) fl).setStars(Stars.FIVE_STARS);
+        ((HotelFloor) fl2).setStars(Stars.ONE_STAR);
+
+        Hotel hotel = new Hotel(new Floor[] {fl,fl2});
+
+        System.out.println(hotel);
+        System.out.println(hotel.getBestSpace());
+
+        double[] ar = {0.1, 0.5, 1.5};
+        Arrays.stream(ar).max();
+
 
         Floor[] floors = {fl, fl2, fl3};
 
         Building b1 = new Dwelling(floors);
-
-        Flat flat = new Flat(1.1, 1);
-        Flat flat2 = new Flat(2.2, 2);
-        Flat flat3 = new Flat(3.3, 3);
-
-        OfficeFloor fl4 = new OfficeFloor(new Space[]{flat, flat2, flat3});
-
-        try {
-
-            System.out.println(b1);
-            System.out.println();
-            Building b2 = (Building) b1.clone();
-            System.out.println(b2);
-            System.out.println(b1.equals(b2));
-
-
-            b1.setSpace(0,new Flat(123,123));
-            System.out.println(b1);
-            System.out.println(b2);
-
-        } catch (CloneNotSupportedException e) {
-            e.printStackTrace();
-        }
 
 
     }

@@ -18,7 +18,7 @@ public interface Floor  {
 
     void deleteSpace(int num);
 
-    Space getBestArea();
+    Space getBestSpace();
 
     Object clone() throws CloneNotSupportedException;
 

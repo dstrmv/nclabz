@@ -1,5 +1,9 @@
-package buildings;
+package buildings.office;
 
+import buildings.Building;
+import buildings.Floor;
+import buildings.Quicksort;
+import buildings.Space;
 import buildings.exceptions.FloorIndexOutOfBoundsException;
 import buildings.exceptions.SpaceIndexOutOfBoundsException;
 
@@ -179,17 +183,17 @@ public class OfficeBuilding implements Building, Serializable, Cloneable {
     }
 
     @Override
-    public Space getBestArea() {
+    public Space getBestSpace() {
         if (this.floorsAmount() == 0) {
             throw new FloorIndexOutOfBoundsException("zero floors");
         }
         if (this.spacesAmount() == 0) {
             throw new SpaceIndexOutOfBoundsException("zero offices");
         }
-        Space best = getFloor(0).getBestArea();
+        Space best = getFloor(0).getBestSpace();
         Space current = best;
         for (int i = 0; i < floorsAmount(); i++) {
-            current = getFloor(i).getBestArea();
+            current = getFloor(i).getBestSpace();
             if (current.getArea() > best.getArea()) {
                 best = current;
             }
@@ -410,13 +414,19 @@ public class OfficeBuilding implements Building, Serializable, Cloneable {
         protected Object clone() throws CloneNotSupportedException {
 
             Node node = (Node) super.clone();
+            node.content = (Floor) this.content.clone();
 
-            if (this.next == head || this.prev == head) {
+            if (this.next == head) {
                 return node;
             }
 
-            node.content = (Floor) this.content.clone();
             node.next = (Node) this.next.clone();
+
+
+            if (this.prev == head) {
+                return node;
+            }
+
             node.prev = (Node) this.prev.clone();
             return node;
         }

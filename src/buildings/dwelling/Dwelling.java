@@ -1,5 +1,6 @@
-package buildings;
+package buildings.dwelling;
 
+import buildings.*;
 import buildings.exceptions.FloorIndexOutOfBoundsException;
 import buildings.exceptions.SpaceIndexOutOfBoundsException;
 
@@ -151,7 +152,7 @@ public class Dwelling implements Building, Serializable, Cloneable {
     }
 
     @Override
-    public Space getBestArea() {
+    public Space getBestSpace() {
         if (floors.length == 0) {
             throw new FloorIndexOutOfBoundsException("zero floors");
         }
@@ -159,10 +160,10 @@ public class Dwelling implements Building, Serializable, Cloneable {
             throw new SpaceIndexOutOfBoundsException("zero flats");
         }
 
-        Space best = floors[0].getBestArea();
+        Space best = floors[0].getBestSpace();
         Space current = best;
         for (Floor f : floors) {
-            current = f.getBestArea();
+            current = f.getBestSpace();
             if (current.getArea() > best.getArea()) {
                 best = current;
             }

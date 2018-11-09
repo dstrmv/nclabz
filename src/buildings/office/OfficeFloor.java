@@ -1,5 +1,7 @@
-package buildings;
+package buildings.office;
 
+import buildings.Floor;
+import buildings.Space;
 import buildings.exceptions.SpaceIndexOutOfBoundsException;
 
 import java.io.Serializable;
@@ -107,7 +109,7 @@ public class OfficeFloor implements Floor, Serializable, Cloneable {
     }
 
     @Override
-    public Space getBestArea() {
+    public Space getBestSpace() {
         if (size == 0) {
             throw new SpaceIndexOutOfBoundsException();
         }
@@ -248,10 +250,11 @@ public class OfficeFloor implements Floor, Serializable, Cloneable {
         protected Object clone() throws CloneNotSupportedException {
 
             Node node = (Node) super.clone();
+            node.content = (Space) this.content.clone();
+
             if (this.next == head) {
                 return node;
             }
-            node.content = (Space) this.content.clone();
             node.next = (Node) this.next.clone();
             return node;
         }
