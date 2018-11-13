@@ -230,7 +230,7 @@ public class OfficeFloor implements Floor, Serializable, Cloneable {
 
     @Override
     public Iterator<Space> iterator() {
-        return new Iterator<>() {
+        return new Iterator<Space>() {
             int index = 0;
             Node current = head;
 
@@ -241,6 +241,9 @@ public class OfficeFloor implements Floor, Serializable, Cloneable {
 
             @Override
             public Space next() {
+
+                if (!hasNext())
+                    throw new NoSuchElementException();
 
                 Space next;
                 next = current.content;

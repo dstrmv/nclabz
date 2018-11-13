@@ -9,7 +9,9 @@ import buildings.dwelling.hotel.Stars;
 import buildings.office.Office;
 import buildings.office.OfficeFloor;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Iterator;
 import java.util.stream.Stream;
 
 public class Main {
@@ -27,28 +29,21 @@ public class Main {
         }
 
         Floor fl = new HotelFloor(flats);
-        for(Space s: fl) {
-            System.out.println(s);
-        }
-
 
         Floor flcopy = new HotelFloor(flats);
 
 //        System.out.println(fl.equals(flcopy));
 
 
-
         Floor fl2 = new HotelFloor(flats2);
         Floor fl3 = new HotelFloor(flats3);
+
+        System.out.println(fl2.compareTo(fl));
 
 //        ((HotelFloor) fl).setStars(Stars.FIVE_STARS);
         ((HotelFloor) fl2).setStars(Stars.ONE_STAR);
 
         Hotel hotel = new Hotel(new Floor[] {fl,fl2});
-
-        double[] ar = {0.1, 0.5, 1.5};
-        Arrays.stream(ar).max();
-
 
         Floor[] floors = {fl, fl2, fl3};
 

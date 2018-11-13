@@ -1,6 +1,6 @@
 package buildings;
 
-public interface Space {
+public interface Space extends Comparable<Space> {
 
     int getRoomsAmount();
 
@@ -12,4 +12,8 @@ public interface Space {
 
     Object clone() throws CloneNotSupportedException;
 
+    @Override
+    default int compareTo(Space o) {
+        return Double.compare(this.getArea(), o.getArea());
+    }
 }

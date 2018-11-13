@@ -6,6 +6,7 @@ import buildings.exceptions.SpaceIndexOutOfBoundsException;
 
 import java.io.Serializable;
 import java.util.Iterator;
+import java.util.NoSuchElementException;
 
 public class Dwelling implements Building, Serializable, Cloneable {
 
@@ -209,7 +210,7 @@ public class Dwelling implements Building, Serializable, Cloneable {
 
     @Override
     public Iterator<Floor> iterator() {
-        return new Iterator<>() {
+        return new Iterator<Floor>() {
 
             int index = 0;
 
@@ -220,6 +221,8 @@ public class Dwelling implements Building, Serializable, Cloneable {
 
             @Override
             public Floor next() {
+                if (!hasNext())
+                    throw new NoSuchElementException();
                 return floors[index++];
             }
         };
@@ -254,7 +257,7 @@ public class Dwelling implements Building, Serializable, Cloneable {
     @Override
     public int hashCode() {
         int hash = this.floorsAmount();
-        for (int i = 0; i < this.floorsAmount(); i++ ) {
+        for (int i = 0; i < this.floorsAmount(); i++) {
             hash ^= getFloor(i).hashCode();
         }
         return hash;

@@ -80,4 +80,5 @@ public class Flat implements Space, Serializable, Cloneable {
         Flat flat = (Flat) super.clone();
         return flat;
     }
+
 }

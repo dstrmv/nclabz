@@ -2,7 +2,7 @@ package buildings;
 
 import java.util.Iterator;
 
-public interface Floor extends Iterable<Space> {
+public interface Floor extends Iterable<Space>, Comparable<Floor> {
 
     int spacesAmount();
 
@@ -26,4 +26,9 @@ public interface Floor extends Iterable<Space> {
 
     @Override
     Iterator<Space> iterator();
+
+    @Override
+    default int compareTo(Floor o) {
+        return Integer.compare(this.spacesAmount(), o.spacesAmount());
+    }
 }

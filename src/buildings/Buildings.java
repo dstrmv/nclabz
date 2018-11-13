@@ -8,6 +8,7 @@ import buildings.office.OfficeBuilding;
 import buildings.office.OfficeFloor;
 
 import java.io.*;
+import java.util.Arrays;
 import java.util.Formatter;
 import java.util.Locale;
 import java.util.Scanner;
@@ -338,6 +339,22 @@ public class Buildings {
             e.printStackTrace();
         }
         return building;
+    }
+
+    public static Space[] sortSpaces(Floor f) {
+        Space[] result = f.getSpaces();
+        Arrays.sort(result);
+        return result;
+    }
+
+    public static Floor[] sortFloors(Building b) {
+        Floor[] result = b.getFloors();
+        Arrays.sort(result);
+        return result;
+    }
+
+    public static <E extends Comparable<? super E>> E[] sort(E e) {
+        //TODO
     }
 
 }

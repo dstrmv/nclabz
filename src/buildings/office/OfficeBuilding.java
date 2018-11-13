@@ -9,6 +9,7 @@ import buildings.exceptions.SpaceIndexOutOfBoundsException;
 
 import java.io.Serializable;
 import java.util.Iterator;
+import java.util.NoSuchElementException;
 
 public class OfficeBuilding implements Building, Serializable, Cloneable {
 
@@ -405,6 +406,10 @@ public class OfficeBuilding implements Building, Serializable, Cloneable {
 
             @Override
             public Floor next() {
+                if (!hasNext()) {
+                    throw new NoSuchElementException();
+                }
+
                 Floor next;
                 next = current.content;
                 current = current.next;

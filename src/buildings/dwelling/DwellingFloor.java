@@ -6,6 +6,7 @@ import buildings.exceptions.SpaceIndexOutOfBoundsException;
 
 import java.io.Serializable;
 import java.util.Iterator;
+import java.util.NoSuchElementException;
 
 public class DwellingFloor implements Floor, Serializable, Cloneable {
 
@@ -165,6 +166,9 @@ public class DwellingFloor implements Floor, Serializable, Cloneable {
 
             @Override
             public Space next() {
+                if (!hasNext()) {
+                    throw new NoSuchElementException();
+                }
                 return spaces[index++];
             }
         };
