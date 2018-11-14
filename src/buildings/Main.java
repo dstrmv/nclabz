@@ -1,17 +1,17 @@
 package buildings;
 
 import buildings.dwelling.Dwelling;
-import buildings.dwelling.DwellingFloor;
 import buildings.dwelling.Flat;
 import buildings.dwelling.hotel.Hotel;
 import buildings.dwelling.hotel.HotelFloor;
 import buildings.dwelling.hotel.Stars;
-import buildings.office.Office;
-import buildings.office.OfficeFloor;
+import buildings.interfaces.Building;
+import buildings.interfaces.Floor;
+import buildings.interfaces.Space;
+import util.Buildings;
+import util.comparators.SpaceComparator;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Iterator;
+import java.util.Comparator;
 import java.util.stream.Stream;
 
 public class Main {
@@ -37,6 +37,10 @@ public class Main {
 
         Floor fl2 = new HotelFloor(flats2);
         Floor fl3 = new HotelFloor(flats3);
+
+        Space[] ar = fl.getSpaces();
+        var res = Buildings.sortComp(ar, new SpaceComparator());
+        Stream.of(res).forEach(System.out::println);
 
         System.out.println(fl2.compareTo(fl));
 

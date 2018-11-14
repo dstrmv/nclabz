@@ -1,8 +1,11 @@
 package buildings.dwelling;
 
-import buildings.*;
 import buildings.exceptions.FloorIndexOutOfBoundsException;
 import buildings.exceptions.SpaceIndexOutOfBoundsException;
+import buildings.interfaces.Building;
+import buildings.interfaces.Floor;
+import buildings.interfaces.Space;
+import util.Quicksort;
 
 import java.io.Serializable;
 import java.util.Iterator;

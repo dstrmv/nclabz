@@ -1,17 +1,19 @@
-package buildings;
+package util;
 
+import buildings.factory.DwellingFactory;
 import buildings.dwelling.Dwelling;
 import buildings.dwelling.DwellingFloor;
 import buildings.dwelling.Flat;
+import buildings.interfaces.Building;
+import buildings.interfaces.BuildingFactory;
+import buildings.interfaces.Floor;
+import buildings.interfaces.Space;
 import buildings.office.Office;
 import buildings.office.OfficeBuilding;
 import buildings.office.OfficeFloor;
 
 import java.io.*;
-import java.util.Arrays;
-import java.util.Formatter;
-import java.util.Locale;
-import java.util.Scanner;
+import java.util.*;
 
 public class Buildings {
 
@@ -341,22 +343,43 @@ public class Buildings {
         return building;
     }
 
-    public static Space[] sortSpaces(Floor f) {
-        Space[] result = f.getSpaces();
+    public static Space[] sortSpaces(Space[] sp) {
+        Space[] result = new Space[sp.length];
+        System.arraycopy(sp, 0, result, 0, sp.length);
         Arrays.sort(result);
         return result;
     }
 
-    public static Floor[] sortFloors(Building b) {
-        Floor[] result = b.getFloors();
+    public static Floor[] sortFloors(Floor[] fl) {
+        Floor[] result = new Floor[fl.length];
+        System.arraycopy(fl, 0, result, 0, fl.length);
         Arrays.sort(result);
         return result;
     }
 
-    public static <E extends Comparable<? super E>> E[] sort(E e) {
-        //TODO
+    public static <E extends Comparable<? super E>> E[] sort(E[] e) {
+        E[] result = Arrays.copyOf(e, e.length);
+        Arrays.sort(result);
+        return result;
     }
 
+    public static Space[] sortSpacesComp(Space[] sp, Comparator<Space> comp) {
+        Space[] result = Arrays.copyOf(sp, sp.length);
+        Arrays.sort(result, comp);
+        return result;
+    }
+
+    public static Floor[] sortFloorsComp(Floor[] fl, Comparator<Floor> comp) {
+        Floor[] result = Arrays.copyOf(fl, fl.length);
+        Arrays.sort(result, comp);
+        return result;
+    }
+
+    public static <E> E[] sortComp(E[] e, Comparator<E> comp) {
+        E[] result = Arrays.copyOf(e, e.length);
+        Arrays.sort(result, comp);
+        return result;
+    }
 }
 
 

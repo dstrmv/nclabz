@@ -1,5 +1,9 @@
-package buildings;
+package buildings.factory;
 
+import buildings.interfaces.Building;
+import buildings.interfaces.BuildingFactory;
+import buildings.interfaces.Floor;
+import buildings.interfaces.Space;
 import buildings.office.*;
 
 public class OfficeFactory implements BuildingFactory {

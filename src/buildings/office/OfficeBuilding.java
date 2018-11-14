@@ -1,9 +1,9 @@
 package buildings.office;
 
-import buildings.Building;
-import buildings.Floor;
-import buildings.Quicksort;
-import buildings.Space;
+import buildings.interfaces.Building;
+import buildings.interfaces.Floor;
+import util.Quicksort;
+import buildings.interfaces.Space;
 import buildings.exceptions.FloorIndexOutOfBoundsException;
 import buildings.exceptions.SpaceIndexOutOfBoundsException;
 

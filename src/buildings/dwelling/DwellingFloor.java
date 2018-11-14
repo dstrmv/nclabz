@@ -1,7 +1,7 @@
 package buildings.dwelling;
 
-import buildings.Floor;
-import buildings.Space;
+import buildings.interfaces.Floor;
+import buildings.interfaces.Space;
 import buildings.exceptions.SpaceIndexOutOfBoundsException;
 
 import java.io.Serializable;

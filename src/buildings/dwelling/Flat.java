@@ -1,6 +1,6 @@
 package buildings.dwelling;
 
-import buildings.Space;
+import buildings.interfaces.Space;
 import buildings.exceptions.InvalidRoomsCountException;
 import buildings.exceptions.InvalidSpaceAreaException;
 

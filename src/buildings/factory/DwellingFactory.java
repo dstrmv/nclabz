@@ -1,8 +1,12 @@
-package buildings;
+package buildings.factory;
 
 import buildings.dwelling.Dwelling;
 import buildings.dwelling.DwellingFloor;
 import buildings.dwelling.Flat;
+import buildings.interfaces.Building;
+import buildings.interfaces.BuildingFactory;
+import buildings.interfaces.Floor;
+import buildings.interfaces.Space;
 
 public class DwellingFactory implements BuildingFactory {
     @Override

@@ -1,7 +1,7 @@
 package buildings.dwelling.hotel;
 
-import buildings.Floor;
-import buildings.Space;
+import buildings.interfaces.Floor;
+import buildings.interfaces.Space;
 import buildings.dwelling.Dwelling;
 import buildings.exceptions.FloorIndexOutOfBoundsException;
 import buildings.exceptions.SpaceIndexOutOfBoundsException;
@@ -9,7 +9,6 @@ import util.functional.Tuple;
 
 import java.util.Arrays;
 import java.util.Comparator;
-import java.util.Optional;
 
 public class Hotel extends Dwelling {
 

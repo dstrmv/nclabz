@@ -1,4 +1,6 @@
-package buildings;
+package util;
+
+import buildings.interfaces.Space;
 
 public final class Quicksort {
 

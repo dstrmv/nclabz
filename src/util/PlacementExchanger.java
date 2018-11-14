@@ -1,7 +1,10 @@
-package buildings;
+package util;
 
 import buildings.exceptions.InexchangeableFloorsException;
 import buildings.exceptions.InexchangeableSpacesException;
+import buildings.interfaces.Building;
+import buildings.interfaces.Floor;
+import buildings.interfaces.Space;
 
 public final class PlacementExchanger {
 

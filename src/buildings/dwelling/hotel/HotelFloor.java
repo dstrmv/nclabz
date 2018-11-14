@@ -1,9 +1,7 @@
 package buildings.dwelling.hotel;
 
-import buildings.Space;
+import buildings.interfaces.Space;
 import buildings.dwelling.DwellingFloor;
-
-import java.util.Iterator;
 
 import static buildings.dwelling.hotel.Stars.*;
 
