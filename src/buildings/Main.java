@@ -39,7 +39,7 @@ public class Main {
         Floor fl3 = new HotelFloor(flats3);
 
         Space[] ar = fl.getSpaces();
-        var res = Buildings.sortComp(ar, new SpaceComparator());
+        Space[] res = Buildings.sort(ar, new SpaceComparator());
         Stream.of(res).forEach(System.out::println);
 
         System.out.println(fl2.compareTo(fl));
@@ -52,7 +52,6 @@ public class Main {
         Floor[] floors = {fl, fl2, fl3};
 
         Building b1 = new Dwelling(floors);
-
 
     }
 

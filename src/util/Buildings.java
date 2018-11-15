@@ -363,22 +363,46 @@ public class Buildings {
         return result;
     }
 
-    public static Space[] sortSpacesComp(Space[] sp, Comparator<Space> comp) {
+    public static Space[] sortSpaces(Space[] sp, Comparator<Space> comp) {
         Space[] result = Arrays.copyOf(sp, sp.length);
         Arrays.sort(result, comp);
         return result;
     }
 
-    public static Floor[] sortFloorsComp(Floor[] fl, Comparator<Floor> comp) {
+    public static Floor[] sortFloors(Floor[] fl, Comparator<Floor> comp) {
         Floor[] result = Arrays.copyOf(fl, fl.length);
         Arrays.sort(result, comp);
         return result;
     }
 
-    public static <E> E[] sortComp(E[] e, Comparator<E> comp) {
+    public static <E> E[] sort(E[] e, Comparator<E> comp) {
         E[] result = Arrays.copyOf(e, e.length);
         Arrays.sort(result, comp);
         return result;
+    }
+
+    public static Space newSpace(Double area) {
+        return buildingFactory.createSpace(area);
+    }
+
+    public static Space newSpace(Double area, int rooms) {
+        return buildingFactory.createSpace(area, rooms);
+    }
+
+    public static Floor newFloor(int spacesAmount) {
+        return buildingFactory.createFloor(spacesAmount);
+    }
+
+    public static Floor newFloor(Space[] spaces) {
+        return buildingFactory.createFloor(spaces);
+    }
+
+    public static Building newBuilding(Floor[] floors) {
+        return buildingFactory.createBuilding(floors);
+    }
+
+    public static Building newBuilding(int floorsAmount, int[] spacesOnFloor) {
+        return buildingFactory.createBuilding(floorsAmount, spacesOnFloor);
     }
 }
 
