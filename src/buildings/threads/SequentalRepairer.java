@@ -3,12 +3,12 @@ package buildings.threads;
 import buildings.interfaces.Floor;
 import buildings.interfaces.Space;
 
-public class SequentalCleaner implements Runnable {
+public class SequentalRepairer implements Runnable {
 
     private Floor floor;
     private Semaphore semaphore;
 
-    public SequentalCleaner(Floor floor, Semaphore semaphore) {
+    public SequentalRepairer(Floor floor, Semaphore semaphore) {
         this.floor = floor;
         this.semaphore = semaphore;
     }
@@ -19,13 +19,13 @@ public class SequentalCleaner implements Runnable {
         for (Space s: floor) {
             semaphore.acquire(this);
             System.out.println(String.format(
-                    "Cleaning space number %d with total area %f square meters",
+                    "Repairing space number %d with total area %f square meters",
                     i++,
                     s.getArea()
             ));
             semaphore.release(this);
             if (Thread.interrupted()) {
-                System.out.println("Cleaner is interrupted.");
+                System.out.println("Repairer is interrupted.");
                 return;
             }
         }

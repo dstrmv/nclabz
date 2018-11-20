@@ -8,8 +8,7 @@ import buildings.dwelling.hotel.Stars;
 import buildings.interfaces.Building;
 import buildings.interfaces.Floor;
 import buildings.interfaces.Space;
-import buildings.threads.Cleaner;
-import buildings.threads.Repairer;
+import buildings.threads.*;
 import util.Buildings;
 import util.comparators.SpaceComparator;
 
@@ -40,11 +39,15 @@ public class Main {
 
         Building b1 = new Dwelling(floors);
 
-        Repairer r = new Repairer(fl);
-        Cleaner c = new Cleaner(fl);
-        r.start();
-        r.interrupt();
-        c.start();
+        Semaphore s = new Semaphore();
+        SequentalRepairer repairer = new SequentalRepairer(fl, s);
+        SequentalCleaner cleaner = new SequentalCleaner(fl, s);
+
+        Thread repThr = new Thread(repairer);
+        Thread clThr = new Thread(cleaner);
+
+        repThr.start();
+        clThr.start();
 
     }
 
