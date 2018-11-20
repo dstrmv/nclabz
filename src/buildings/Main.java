@@ -8,6 +8,8 @@ import buildings.dwelling.hotel.Stars;
 import buildings.interfaces.Building;
 import buildings.interfaces.Floor;
 import buildings.interfaces.Space;
+import buildings.threads.Cleaner;
+import buildings.threads.Repairer;
 import util.Buildings;
 import util.comparators.SpaceComparator;
 
@@ -30,28 +32,19 @@ public class Main {
 
         Floor fl = new HotelFloor(flats);
 
-        Floor flcopy = new HotelFloor(flats);
-
-//        System.out.println(fl.equals(flcopy));
-
-
         Floor fl2 = new HotelFloor(flats2);
         Floor fl3 = new HotelFloor(flats3);
 
-        Space[] ar = fl.getSpaces();
-        Space[] res = Buildings.sort(ar, new SpaceComparator());
-        Stream.of(res).forEach(System.out::println);
-
-        System.out.println(fl2.compareTo(fl));
-
-//        ((HotelFloor) fl).setStars(Stars.FIVE_STARS);
         ((HotelFloor) fl2).setStars(Stars.ONE_STAR);
-
-        Hotel hotel = new Hotel(new Floor[] {fl,fl2});
-
         Floor[] floors = {fl, fl2, fl3};
 
         Building b1 = new Dwelling(floors);
+
+        Repairer r = new Repairer(fl);
+        Cleaner c = new Cleaner(fl);
+        r.start();
+        r.interrupt();
+        c.start();
 
     }
 
