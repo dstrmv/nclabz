@@ -24,7 +24,7 @@ public class Main {
 
     public static void main(String[] args) {
 
-        Flat[][] flats = new Flat[10][50];
+        Flat[][] flats = new Flat[10][20];
         for (int i = 0; i < flats.length; i++) {
             for (int j = 0; j < flats[i].length; j++) {
                 flats[i][j] = new Flat(i * j * 20 + i + j + 1, i * j + 1);
@@ -38,14 +38,17 @@ public class Main {
 
         Building building = new Dwelling(floors);
 
-        try (PrintWriter pw = new PrintWriter(new FileWriter(new File("buildinginfo.txt")));
-             PrintWriter pwt = new PrintWriter(new FileWriter(new File("buildingtypes.txt")))) {
+        System.out.println(Buildings.createFloor(flats[0], DwellingFloor.class));
 
-            Buildings.writeBuilding(building, pw);
-            Buildings.writeBuildingTypes(building, pwt);
-        } catch (IOException e) {
-
-        }
+//        try (PrintWriter pw = new PrintWriter(new FileWriter(new File("buildinginfo.txt")));
+//             PrintWriter pwt = new PrintWriter(new FileWriter(new File("buildingtypes.txt")))) {
+//
+//            Buildings.writeBuilding(building, pw);
+//            Buildings.writeBuildingTypes(building, pwt);
+//
+//        } catch (IOException e) {
+//
+//        }
 
     }
 
