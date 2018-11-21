@@ -6,26 +6,24 @@ public class Semaphore {
 
     private boolean free;
     private String acquiredBy;
-    private Object lock;
 
     public Semaphore() {
         free = true;
         acquiredBy = SequentalCleaner.class.getName();
-        lock = new Object();
     }
 
     public void acquire(Runnable thread) {
-        synchronized (lock) {
+        synchronized (this) {
             if (!free) {
                 try {
-                    lock.wait();
+                    this.wait();
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
             }
             if (acquiredBy.equals(thread.getClass().getName())) {
                 try {
-                    lock.wait();
+                    this.wait();
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
@@ -35,10 +33,10 @@ public class Semaphore {
     }
 
     public void release(Runnable thread) {
-        synchronized (lock) {
+        synchronized (this) {
             free = true;
             acquiredBy = thread.getClass().getName();
-            lock.notifyAll();
+            this.notifyAll();
         }
     }
 }

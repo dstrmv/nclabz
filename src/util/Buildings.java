@@ -11,6 +11,7 @@ import buildings.interfaces.Space;
 import buildings.office.Office;
 import buildings.office.OfficeBuilding;
 import buildings.office.OfficeFloor;
+import buildings.threads.SynchronizedFloor;
 
 import java.io.*;
 import java.util.*;
@@ -281,5 +282,9 @@ public class Buildings {
 
     public static Building newBuilding(int floorsAmount, int[] spacesOnFloor) {
         return buildingFactory.createBuilding(floorsAmount, spacesOnFloor);
+    }
+
+    public Floor synchronizedFloor(Floor floor) {
+        return new SynchronizedFloor(floor);
     }
 }

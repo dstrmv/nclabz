@@ -48,7 +48,11 @@ public class Main {
 
         repThr.start();
         clThr.start();
-
+        try {
+            Thread.sleep(100);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
 
