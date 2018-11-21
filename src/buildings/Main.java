@@ -9,20 +9,23 @@ import buildings.dwelling.hotel.Stars;
 import buildings.interfaces.Building;
 import buildings.interfaces.Floor;
 import buildings.interfaces.Space;
+import buildings.office.Office;
+import buildings.office.OfficeBuilding;
+import buildings.office.OfficeFloor;
 import buildings.threads.*;
 import util.Buildings;
 import util.comparators.SpaceComparator;
 
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.PrintWriter;
+import java.io.*;
 import java.util.Comparator;
+import java.util.Locale;
 import java.util.stream.Stream;
 
 public class Main {
 
     public static void main(String[] args) {
+
+        Locale.setDefault(Locale.US);
 
         Flat[][] flats = new Flat[10][20];
         for (int i = 0; i < flats.length; i++) {
@@ -38,17 +41,21 @@ public class Main {
 
         Building building = new Dwelling(floors);
 
-        System.out.println(Buildings.createFloor(flats[0], DwellingFloor.class));
+        //System.out.println(Buildings.createFloor(flats[0], DwellingFloor.class));
 
-//        try (PrintWriter pw = new PrintWriter(new FileWriter(new File("buildinginfo.txt")));
-//             PrintWriter pwt = new PrintWriter(new FileWriter(new File("buildingtypes.txt")))) {
-//
-//            Buildings.writeBuilding(building, pw);
-//            Buildings.writeBuildingTypes(building, pwt);
-//
-//        } catch (IOException e) {
-//
-//        }
+        try (PrintWriter pw = new PrintWriter(new FileWriter("buildinginfo.txt"));
+             PrintWriter pwt = new PrintWriter(new FileWriter("buildingtypes.txt"));
+             Reader in = new FileReader("buildinginfo.txt")) {
+
+            Buildings.writeBuilding(building, pw);
+            pw.flush();
+            Building b = Buildings.readBuilding(in, Office.class, OfficeFloor.class, OfficeBuilding.class);
+            System.out.println(b);
+            //Buildings.writeBuildingTypes(building, pwt);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
     }
 

@@ -94,6 +94,7 @@ public class Buildings {
     }
 
     public static void writeBuilding(Building building, Writer out) {
+
         PrintWriter writer = new PrintWriter(out);
 
         writer.println(building.floorsAmount());
@@ -107,7 +108,7 @@ public class Buildings {
             for (int j = 0; j < floor.spacesAmount(); j++) {
                 space = floor.getSpace(j);
 
-                writer.printf(Locale.GERMANY, "%f%n", space.getArea());
+                writer.println(space.getArea());
                 writer.println(space.getRoomsAmount());
             }
         }
@@ -120,8 +121,10 @@ public class Buildings {
         Space[] spaces;
 
         StreamTokenizer tokenizer = new StreamTokenizer(in);
-
+        //tokenizer.parseNumbers();
+        //tokenizer.ordinaryChar('\'');
         try {
+
             tokenizer.nextToken();
             int floorsAmount = (int) tokenizer.nval;
 
@@ -358,6 +361,120 @@ public class Buildings {
         }
         throw new IllegalArgumentException();
     }
+
+    public static Building readBuilding(Scanner scanner,
+                                        Class<? extends Space> spaceType,
+                                        Class<? extends Floor> floorType,
+                                        Class<? extends Building> buildingType) {
+        Building building = null;
+        Floor[] floors;
+        Space[] spaces;
+
+        int floorsAmount = scanner.nextInt();
+
+        floors = new Floor[floorsAmount];
+        for (int i = 0; i < floorsAmount; i++) {
+            scanner.nextLine();
+            int spacesOnFloor = scanner.nextInt();
+            spaces = new Space[spacesOnFloor];
+
+            for (int j = 0; j < spacesOnFloor; j++) {
+                scanner.nextLine();
+                double area = scanner.nextDouble();
+                scanner.nextLine();
+                int rooms = scanner.nextInt();
+
+                spaces[j] = Buildings.createSpace(area, rooms, spaceType);
+            }
+
+            floors[i] = Buildings.createFloor(spaces, floorType);
+
+        }
+        building = Buildings.createBuilding(floors, buildingType);
+        return building;
+    }
+
+    public static Building readBuilding(Reader in,
+                                        Class<? extends Space> spaceType,
+                                        Class<? extends Floor> floorType,
+                                        Class<? extends Building> buildingType) {
+        Building building = null;
+        Floor[] floors;
+        Space[] spaces;
+
+        StreamTokenizer tokenizer = new StreamTokenizer(in);
+
+        try {
+            tokenizer.nextToken();
+            int floorsAmount = (int) tokenizer.nval;
+
+            floors = new Floor[floorsAmount];
+            for (int i = 0; i < floorsAmount; i++) {
+                tokenizer.nextToken();
+                int spacesOnFloor = (int) tokenizer.nval;
+                spaces = new Space[spacesOnFloor];
+                for (int j = 0; j < spacesOnFloor; j++) {
+                    tokenizer.nextToken();
+                    double area = tokenizer.nval;
+                    tokenizer.nextToken();
+                    int rooms = (int) tokenizer.nval;
+
+                    spaces[j] = Buildings.createSpace(area, rooms, spaceType);
+                }
+
+                floors[i] = Buildings.createFloor(spaces, floorType);
+
+            }
+            building = Buildings.createBuilding(floors, buildingType);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return building;
+    }
+
+
+    public static Building inputBuilding(InputStream in,
+                                         Class<? extends Space> spaceType,
+                                         Class<? extends Floor> floorType,
+                                         Class<? extends Building> buildingType) {
+        Building building = null;
+        try {
+            DataInputStream dataInputStream = new DataInputStream(in);
+
+            int floorsAmount = dataInputStream.readInt();
+            int spacesOnFloor;
+
+            Floor[] floors = new Floor[floorsAmount];
+            Space[] spaces;
+
+            int rooms;
+            double area;
+
+            for (int i = 0; i < floorsAmount; i++) {
+
+                spacesOnFloor = dataInputStream.readInt();
+                spaces = new Space[spacesOnFloor];
+
+                for (int j = 0; j < spacesOnFloor; j++) {
+                    rooms = dataInputStream.readInt();
+                    area = dataInputStream.readDouble();
+
+                    spaces[j] = Buildings.createSpace(area, rooms, spaceType);
+                }
+
+                floors[i] = Buildings.createFloor(spaces, floorType);
+            }
+
+            building = Buildings.createBuilding(floors, buildingType);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return building;
+    }
+
 
     public static void writeBuildingTypes(Building building, Writer out) {
 
