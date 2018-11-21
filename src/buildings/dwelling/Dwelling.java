@@ -35,6 +35,11 @@ public class Dwelling implements Building, Serializable, Cloneable {
     }
 
     @Override
+    public double getCostCoef() {
+        return 1000;
+    }
+
+    @Override
     public int floorsAmount() {
         return floors.length;
     }

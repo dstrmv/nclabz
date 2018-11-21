@@ -4,6 +4,8 @@ import java.util.Iterator;
 
 public interface Building extends Iterable<Floor> {
 
+    double getCostCoef();
+
     int floorsAmount();
 
     int spacesAmount();

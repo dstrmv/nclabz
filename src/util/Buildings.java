@@ -287,4 +287,53 @@ public class Buildings {
     public Floor synchronizedFloor(Floor floor) {
         return new SynchronizedFloor(floor);
     }
+
+
+    public static void writeBuildingTypes(Building building, Writer out) {
+
+        PrintWriter writer = new PrintWriter(out);
+        writer.println(building.getClass().getName());
+        for (Floor f : building.getFloors()) {
+            writer.println(f.getClass().getName());
+            for (Space s : f.getSpaces()) {
+                writer.println(s.getClass().getName());
+            }
+        }
+    }
+
+    public static Building readBuildingwithTypes(Scanner info, Scanner types) {
+        Building building = null;
+        Floor[] floors;
+        Space[] spaces;
+
+        int floorsAmount = info.nextInt();
+
+        floors = new Floor[floorsAmount];
+        for (int i = 0; i < floorsAmount; i++) {
+            info.nextLine();
+            int spacesOnFloor = info.nextInt();
+            spaces = new Space[spacesOnFloor];
+
+            for (int j = 0; j < spacesOnFloor; j++) {
+                info.nextLine();
+                double area = info.nextDouble();
+                info.nextLine();
+                int rooms = info.nextInt();
+
+                spaces[j] = buildingFactory.createSpace(area, rooms);
+            }
+
+            floors[i] = buildingFactory.createFloor(spaces);
+
+        }
+        building = buildingFactory.createBuilding(floors);
+        return building;
+    }
+
+
+
+
 }
+
+
+

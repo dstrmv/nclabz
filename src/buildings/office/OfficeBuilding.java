@@ -40,6 +40,11 @@ public class OfficeBuilding implements Building, Serializable, Cloneable {
     }
 
     @Override
+    public double getCostCoef() {
+        return 1500;
+    }
+
+    @Override
     public int floorsAmount() {
         return size;
     }

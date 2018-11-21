@@ -38,6 +38,11 @@ public class Hotel extends Dwelling {
     }
 
     @Override
+    public double getCostCoef() {
+        return 2000;
+    }
+
+    @Override
     public Space getBestSpace() {
 
         if (getFloors().length == 0) {

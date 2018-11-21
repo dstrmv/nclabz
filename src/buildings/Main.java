@@ -1,6 +1,7 @@
 package buildings;
 
 import buildings.dwelling.Dwelling;
+import buildings.dwelling.DwellingFloor;
 import buildings.dwelling.Flat;
 import buildings.dwelling.hotel.Hotel;
 import buildings.dwelling.hotel.HotelFloor;
@@ -12,6 +13,10 @@ import buildings.threads.*;
 import util.Buildings;
 import util.comparators.SpaceComparator;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.Comparator;
 import java.util.stream.Stream;
 
@@ -19,40 +24,29 @@ public class Main {
 
     public static void main(String[] args) {
 
-        Space[] flats = new Space[5];
-        Space[] flats2 = new Space[5];
-        Space[] flats3 = new Space[5];
-
+        Flat[][] flats = new Flat[10][50];
         for (int i = 0; i < flats.length; i++) {
-            flats[i] = new Flat(100 * i + 0.1, i + 1); //1
-            flats2[i] = new Flat(10000 * i + 0.1, i + 100);//101
-            flats3[i] = new Flat(1000000*i + 0.1, i + 1000000);
+            for (int j = 0; j < flats[i].length; j++) {
+                flats[i][j] = new Flat(i * j * 20 + i + j + 1, i * j + 1);
+            }
         }
 
-        Floor fl = new HotelFloor(flats);
-
-        Floor fl2 = new HotelFloor(flats2);
-        Floor fl3 = new HotelFloor(flats3);
-
-        ((HotelFloor) fl2).setStars(Stars.ONE_STAR);
-        Floor[] floors = {fl, fl2, fl3};
-
-        Building b1 = new Dwelling(floors);
-
-        Semaphore s = new Semaphore();
-        SequentalRepairer repairer = new SequentalRepairer(fl, s);
-        SequentalCleaner cleaner = new SequentalCleaner(fl, s);
-
-        Thread repThr = new Thread(repairer);
-        Thread clThr = new Thread(cleaner);
-
-        repThr.start();
-        clThr.start();
-        try {
-            Thread.sleep(100);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+        Floor[] floors = new Floor[flats.length];
+        for (int i = 0; i < flats.length; i++) {
+            floors[i] = new DwellingFloor(flats[i]);
         }
+
+        Building building = new Dwelling(floors);
+
+        try (PrintWriter pw = new PrintWriter(new FileWriter(new File("buildinginfo.txt")));
+             PrintWriter pwt = new PrintWriter(new FileWriter(new File("buildingtypes.txt")))) {
+
+            Buildings.writeBuilding(building, pw);
+            Buildings.writeBuildingTypes(building, pwt);
+        } catch (IOException e) {
+
+        }
+
     }
 
 
