@@ -40,6 +40,7 @@ public class Main {
         }
 
         Building building = new Dwelling(floors);
+        Building officebuilding = new OfficeBuilding(floors.clone());
 
         //System.out.println(Buildings.createFloor(flats[0], DwellingFloor.class));
 
@@ -48,10 +49,8 @@ public class Main {
              Reader in = new FileReader("buildinginfo.txt")) {
 
             Buildings.writeBuilding(building, pw);
-            pw.flush();
-            Building b = Buildings.readBuilding(in, Office.class, OfficeFloor.class, OfficeBuilding.class);
-            System.out.println(b);
-            //Buildings.writeBuildingTypes(building, pwt);
+            Buildings.writeBuildingsTypes(new Building[] {building}, pwt);
+
 
         } catch (IOException e) {
             e.printStackTrace();

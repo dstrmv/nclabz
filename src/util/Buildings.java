@@ -1,9 +1,12 @@
 package util;
 
+import buildings.dwelling.hotel.Hotel;
 import buildings.factory.DwellingFactory;
 import buildings.dwelling.Dwelling;
 import buildings.dwelling.DwellingFloor;
 import buildings.dwelling.Flat;
+import buildings.factory.HotelFactory;
+import buildings.factory.OfficeFactory;
 import buildings.interfaces.Building;
 import buildings.interfaces.BuildingFactory;
 import buildings.interfaces.Floor;
@@ -12,7 +15,6 @@ import buildings.office.Office;
 import buildings.office.OfficeBuilding;
 import buildings.office.OfficeFloor;
 import buildings.threads.SynchronizedFloor;
-import com.sun.xml.internal.bind.v2.TODO;
 
 import java.io.*;
 import java.lang.reflect.Constructor;
@@ -475,51 +477,29 @@ public class Buildings {
         return building;
     }
 
-
-    public static void writeBuildingTypes(Building building, Writer out) {
+    //lab 8
+    public static void writeBuildingsTypes(Building[] buildings, Writer out) {
 
         PrintWriter writer = new PrintWriter(out);
-        writer.println(building.getClass().getName());
-        for (Floor f : building.getFloors()) {
-            writer.println(f.getClass().getName());
-            for (Space s : f.getSpaces()) {
-                writer.println(s.getClass().getName());
-            }
+        for (Building b : buildings) {
+            writer.println(b.getClass().getName());
         }
+    }
+
+    public static BuildingFactory getFactoryFromBuildingClassName(String className) {
+        if (className.equals(Dwelling.class.getName())) {
+            return new DwellingFactory();
+        } else if (className.equals(Hotel.class.getName())) {
+            return new HotelFactory();
+        } else if (className.equals(OfficeBuilding.class.getName())) {
+            return new OfficeFactory();
+        }
+        throw new IllegalArgumentException();
     }
 
     public Floor synchronizedFloor(Floor floor) {
         return new SynchronizedFloor(floor);
     }
-    //TODO
-//    public static Building readBuildingwithTypes(Scanner info, Scanner types) {
-//        Building building = null;
-//        Floor[] floors;
-//        Space[] spaces;
-//
-//        int floorsAmount = info.nextInt();
-//
-//        floors = new Floor[floorsAmount];
-//        for (int i = 0; i < floorsAmount; i++) {
-//            info.nextLine();
-//            int spacesOnFloor = info.nextInt();
-//            spaces = new Space[spacesOnFloor];
-//
-//            for (int j = 0; j < spacesOnFloor; j++) {
-//                info.nextLine();
-//                double area = info.nextDouble();
-//                info.nextLine();
-//                int rooms = info.nextInt();
-//
-//                spaces[j] = buildingFactory.createSpace(area, rooms);
-//            }
-//
-//            floors[i] = buildingFactory.createFloor(spaces);
-//
-//        }
-//        building = buildingFactory.createBuilding(floors);
-//        return building;
-//    }
 
 
 }
