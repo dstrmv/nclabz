@@ -2,12 +2,11 @@ package buildings.net.client;
 
 import java.io.*;
 import java.net.Socket;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 public class BinaryClient {
     public static void main(String[] args) {
+        Locale.setDefault(Locale.US);
         try (Socket clientSocket = new Socket("localhost", 1099);
              PrintWriter writer = new PrintWriter(clientSocket.getOutputStream(), true);
              BufferedReader reader = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
@@ -22,28 +21,35 @@ public class BinaryClient {
             int spaces;
             double area;
             int rooms;
-
-            String type = types.nextLine();
-            while (!type.isEmpty()) {
-                writer.println(type);
-                floors = info.nextInt();
-                writer.println(floors);
-                for (int i = 0; i < floors; i++) {
-                    spaces = info.nextInt();
-                    writer.println(spaces);
-                    for (int j = 0; j < spaces; j++) {
-                        area = info.nextDouble();
-                        writer.println(area);
-                        rooms = info.nextInt();
-                        writer.println(rooms);
+            try {
+                String type = types.nextLine();
+                while (!type.isEmpty()) {
+                    writer.println(type);
+                    floors = info.nextInt();
+                    writer.println(floors);
+                    for (int i = 0; i < floors; i++) {
+                        spaces = info.nextInt();
+                        writer.println(spaces);
+                        for (int j = 0; j < spaces; j++) {
+                            area = info.nextDouble();
+                            writer.println(area);
+                            rooms = info.nextInt();
+                            writer.println(rooms);
+                        }
                     }
-                }
 
-                type = types.nextLine();
+                    type = types.nextLine();
+                }
+            } catch (NoSuchElementException e) {
+
             }
 
+            writer.flush();
+            System.out.println("buildings are sent");
             String[] costs = readCosts(reader);
+            System.out.println("cost are readed");
             writeCostsToFile(costs);
+            System.out.println("writed to file");
 
 
         } catch (IOException e) {
@@ -52,27 +58,37 @@ public class BinaryClient {
     }
 
     private static void writeCostsToFile(String[] costs) {
+        File file = new File("buildingcosts.txt");
         try {
-            PrintWriter pw = new PrintWriter(new FileWriter("buildingcost.txt"));
-            for (String c : costs) {
-                pw.println(c);
-            }
-
+            file.createNewFile();
         } catch (IOException e) {
             e.printStackTrace();
         }
+        try {
+            PrintWriter pw = new PrintWriter(new FileWriter(file));
+            for (String c : costs) {
+                pw.println(c);
+            }
+            pw.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
     }
 
-    private static String[] readCosts(BufferedReader reader) {
+    private static String[] readCosts(Reader reader) {
         List<String> costs = new ArrayList<>();
-        String cost = "";
-        do {
-            try {
-                cost = reader.readLine();
-            } catch (IOException e) {
-                e.printStackTrace();
+        Scanner sc = new Scanner(reader);
+        try {
+            String cost = sc.nextLine();
+            while (!cost.equals(";;;")) {
+                costs.add(cost);
+                cost = sc.nextLine();
             }
-        } while (!cost.isEmpty());
+        } catch (NoSuchElementException e) {
+        }
+
         return costs.toArray(new String[0]);
     }
 

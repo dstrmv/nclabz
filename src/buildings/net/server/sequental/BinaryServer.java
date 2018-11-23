@@ -10,6 +10,7 @@ import java.util.*;
 
 public class BinaryServer {
     public static void main(String[] args) {
+        Locale.setDefault(Locale.US);
         try {
             ServerSocket serverSocket = new ServerSocket(1099);
             Socket clientSocket = null;
@@ -17,10 +18,13 @@ public class BinaryServer {
             PrintWriter writer = null;
             while (true) {
                 clientSocket = serverSocket.accept();
+                System.out.println("Client connected");
                 writer = new PrintWriter(clientSocket.getOutputStream());
                 reader = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
                 Building[] buildings = readBuildingsWithTypes(reader);
+                System.out.println("building are readed");
                 writeCosts(buildings, writer);
+                System.out.println("costs are wrote");
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -32,12 +36,16 @@ public class BinaryServer {
         Scanner sc = new Scanner(reader);
         List<Building> buildings = new ArrayList<>();
         Building b;
-        String buildingType = sc.nextLine();
-        while (!buildingType.isEmpty()) {
-            Buildings.setBuildingFactory(Buildings.getFactoryFromBuildingClassName(buildingType));
-            b = Buildings.readBuilding(sc);
-            buildings.add(b);
-            buildingType = sc.nextLine();
+        try {
+            String buildingType = sc.nextLine();
+            while (!buildingType.isEmpty()) {
+                Buildings.setBuildingFactory(Buildings.getFactoryFromBuildingClassName(buildingType));
+                b = Buildings.readBuilding(sc);
+                buildings.add(b);
+                buildingType = sc.nextLine();
+            }
+        } catch (NoSuchElementException e) {
+
         }
         return buildings.toArray(new Building[0]);
     }
@@ -52,7 +60,10 @@ public class BinaryServer {
             } catch (BuildingUnderArrestException e) {
                 writer.println("arrested");
             }
+            writer.println(";;;");
+
         }
+        writer.flush();
     }
 
     private static double calculateCost(Building building) throws BuildingUnderArrestException {
