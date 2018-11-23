@@ -486,6 +486,12 @@ public class Buildings {
         }
     }
 
+    public static void writeBuildings(Building[] buildings, Writer out) {
+        for (Building b : buildings) {
+            writeBuilding(b, out);
+        }
+    }
+
     public static BuildingFactory getFactoryFromBuildingClassName(String className) {
         if (className.equals(Dwelling.class.getName())) {
             return new DwellingFactory();

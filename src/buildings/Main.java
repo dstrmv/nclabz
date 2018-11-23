@@ -27,7 +27,7 @@ public class Main {
 
         Locale.setDefault(Locale.US);
 
-        Flat[][] flats = new Flat[10][20];
+        Flat[][] flats = new Flat[2][5];
         for (int i = 0; i < flats.length; i++) {
             for (int j = 0; j < flats[i].length; j++) {
                 flats[i][j] = new Flat(i * j * 20 + i + j + 1, i * j + 1);
@@ -48,8 +48,8 @@ public class Main {
              PrintWriter pwt = new PrintWriter(new FileWriter("buildingtypes.txt"));
              Reader in = new FileReader("buildinginfo.txt")) {
 
-            Buildings.writeBuilding(building, pw);
-            Buildings.writeBuildingsTypes(new Building[] {building}, pwt);
+            Buildings.writeBuildings(new Building[] {building, officebuilding}, pw);
+            Buildings.writeBuildingsTypes(new Building[] {building, officebuilding}, pwt);
 
 
         } catch (IOException e) {

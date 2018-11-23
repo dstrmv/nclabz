@@ -37,6 +37,7 @@ public class BinaryServer {
             Buildings.setBuildingFactory(Buildings.getFactoryFromBuildingClassName(buildingType));
             b = Buildings.readBuilding(sc);
             buildings.add(b);
+            buildingType = sc.nextLine();
         }
         return buildings.toArray(new Building[0]);
     }
