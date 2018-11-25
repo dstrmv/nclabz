@@ -186,16 +186,12 @@ public class Buildings {
 
         floors = new Floor[floorsAmount];
         for (int i = 0; i < floorsAmount; i++) {
-            scanner.nextLine();
             int spacesOnFloor = scanner.nextInt();
             spaces = new Space[spacesOnFloor];
 
             for (int j = 0; j < spacesOnFloor; j++) {
-                scanner.nextLine();
                 double area = scanner.nextDouble();
-                scanner.nextLine();
                 int rooms = scanner.nextInt();
-
                 spaces[j] = buildingFactory.createSpace(area, rooms);
             }
 

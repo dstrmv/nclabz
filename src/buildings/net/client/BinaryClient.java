@@ -2,6 +2,7 @@ package buildings.net.client;
 
 import java.io.*;
 import java.net.Socket;
+import java.nio.Buffer;
 import java.util.*;
 
 public class BinaryClient {
@@ -10,38 +11,35 @@ public class BinaryClient {
         try (Socket clientSocket = new Socket("localhost", 1099);
              PrintWriter writer = new PrintWriter(clientSocket.getOutputStream(), true);
              BufferedReader reader = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
-             Reader fileinfoIn = new FileReader("buildinginfo.txt");
-             Reader filetypesIn = new FileReader("buildingtypes.txt");
+             BufferedReader info = new BufferedReader(new FileReader("buildinginfo.txt"));
+             BufferedReader types = new BufferedReader(new FileReader("buildingtypes.txt"));
         ) {
-
-            Scanner info = new Scanner(fileinfoIn);
-            Scanner types = new Scanner(filetypesIn);
 
             int floors;
             int spaces;
             double area;
             int rooms;
-            try {
-                String type = types.nextLine();
-                while (!type.isEmpty()) {
-                    writer.println(type);
-                    floors = info.nextInt();
-                    writer.println(floors);
-                    for (int i = 0; i < floors; i++) {
-                        spaces = info.nextInt();
-                        writer.println(spaces);
-                        for (int j = 0; j < spaces; j++) {
-                            area = info.nextDouble();
-                            writer.println(area);
-                            rooms = info.nextInt();
-                            writer.println(rooms);
-                        }
+
+            while (types.ready()) {
+                String type = types.readLine();
+                System.out.println(type);
+                writer.println(type);
+                floors = Integer.parseInt(info.readLine());
+                System.out.println(floors);
+                writer.println(floors);
+                for (int i = 0; i < floors; i++) {
+                    spaces = Integer.parseInt(info.readLine());
+                    writer.println(spaces);
+                    System.out.println(spaces);
+                    for (int j = 0; j < spaces; j++) {
+                        area = Double.parseDouble(info.readLine());
+                        System.out.println(area);
+                        writer.println(area);
+                        rooms = Integer.parseInt(info.readLine());
+                        writer.println(rooms);
+                        System.out.println(rooms);
                     }
-
-                    type = types.nextLine();
                 }
-            } catch (NoSuchElementException e) {
-
             }
 
             writer.flush();
@@ -73,24 +71,19 @@ public class BinaryClient {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-
     }
 
     private static String[] readCosts(Reader reader) {
+        BufferedReader bufferedReader = new BufferedReader(reader);
         List<String> costs = new ArrayList<>();
-        Scanner sc = new Scanner(reader);
+        String input = null;
         try {
-            String cost = sc.nextLine();
-            while (!cost.equals(";;;")) {
-                costs.add(cost);
-                cost = sc.nextLine();
+            while ((input = bufferedReader.readLine()) != null) {
+                costs.add(input);
             }
-        } catch (NoSuchElementException e) {
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-
         return costs.toArray(new String[0]);
     }
-
-
 }

@@ -6,7 +6,10 @@ import util.Buildings;
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
+import java.util.Random;
 
 public class BinaryServer {
     public static void main(String[] args) {
@@ -33,19 +36,22 @@ public class BinaryServer {
     }
 
     private static Building[] readBuildingsWithTypes(Reader reader) {
-        Scanner sc = new Scanner(reader);
+        BufferedReader bufferedReader = new BufferedReader(reader);
         List<Building> buildings = new ArrayList<>();
         Building b;
-        try {
-            String buildingType = sc.nextLine();
-            while (!buildingType.isEmpty()) {
-                Buildings.setBuildingFactory(Buildings.getFactoryFromBuildingClassName(buildingType));
-                b = Buildings.readBuilding(sc);
-                buildings.add(b);
-                buildingType = sc.nextLine();
-            }
-        } catch (NoSuchElementException e) {
+        String input = null;
 
+        try {
+            while ((input = bufferedReader.readLine()) != null) {
+                System.out.println("read building");
+                String buildingType = input;
+                Buildings.setBuildingFactory(Buildings.getFactoryFromBuildingClassName(buildingType));
+                b = Buildings.readBuilding(bufferedReader);
+
+                buildings.add(b);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
         }
         return buildings.toArray(new Building[0]);
     }
@@ -60,8 +66,6 @@ public class BinaryServer {
             } catch (BuildingUnderArrestException e) {
                 writer.println("arrested");
             }
-            writer.println(";;;");
-
         }
         writer.flush();
     }
