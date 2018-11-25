@@ -1,11 +1,14 @@
 package buildings.net.server.sequental;
 
 import buildings.interfaces.Building;
+import buildings.interfaces.Floor;
+import buildings.interfaces.Space;
 import util.Buildings;
 
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.nio.Buffer;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -42,17 +45,20 @@ public class BinaryServer {
         String input = null;
 
         try {
-            while ((input = bufferedReader.readLine()) != null) {
+            while ((input = bufferedReader.readLine()) != null || !bufferedReader.ready()) {
+                System.out.println(input);
+                if (input.equals(String.format("%n"))) break;
                 System.out.println("read building");
                 String buildingType = input;
                 Buildings.setBuildingFactory(Buildings.getFactoryFromBuildingClassName(buildingType));
-                b = Buildings.readBuilding(bufferedReader);
-
+                b = readBuilding(bufferedReader);
                 buildings.add(b);
+                System.out.println("here");
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println("exc");
         }
+        System.out.println("return");
         return buildings.toArray(new Building[0]);
     }
 
@@ -79,5 +85,39 @@ public class BinaryServer {
     private static boolean isArrested(Building building) {
         Random r = new Random();
         return r.nextInt(10) == 0;
+    }
+
+    private static Building readBuilding(BufferedReader reader) {
+        Building building = null;
+        Floor[] floors;
+        Space[] spaces;
+
+        try {
+
+            int floorsAmount = Integer.parseInt(reader.readLine());
+
+            floors = new Floor[floorsAmount];
+            for (int i = 0; i < floorsAmount; i++) {
+
+                int spacesOnFloor = Integer.parseInt(reader.readLine());
+                spaces = new Space[spacesOnFloor];
+                for (int j = 0; j < spacesOnFloor; j++) {
+
+                    double area = Double.parseDouble(reader.readLine());
+                    int rooms = Integer.parseInt(reader.readLine());
+
+                    spaces[j] = Buildings.createSpace(area, rooms);
+                }
+
+                floors[i] = Buildings.createFloor(spaces);
+
+            }
+            building = Buildings.createBuilding(floors);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return building;
     }
 }

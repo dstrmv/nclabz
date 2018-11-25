@@ -78,7 +78,7 @@ public class BinaryClient {
         List<String> costs = new ArrayList<>();
         String input = null;
         try {
-            while ((input = bufferedReader.readLine()) != null) {
+            while ((input = bufferedReader.readLine()) != null ) {
                 costs.add(input);
             }
         } catch (IOException e) {
