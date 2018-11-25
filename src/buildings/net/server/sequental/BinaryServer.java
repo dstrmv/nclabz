@@ -45,20 +45,16 @@ public class BinaryServer {
         String input = null;
 
         try {
-            while ((input = bufferedReader.readLine()) != null || !bufferedReader.ready()) {
-                System.out.println(input);
-                if (input.equals(String.format("%n"))) break;
-                System.out.println("read building");
+            while ((input = bufferedReader.readLine()) != null) {
+                if (input.equals("PEPEGA")) break;
                 String buildingType = input;
                 Buildings.setBuildingFactory(Buildings.getFactoryFromBuildingClassName(buildingType));
                 b = readBuilding(bufferedReader);
                 buildings.add(b);
-                System.out.println("here");
             }
         } catch (IOException e) {
-            System.out.println("exc");
+            e.printStackTrace();
         }
-        System.out.println("return");
         return buildings.toArray(new Building[0]);
     }
 
@@ -73,6 +69,7 @@ public class BinaryServer {
                 writer.println("arrested");
             }
         }
+        writer.println("PEPEGA");
         writer.flush();
     }
 

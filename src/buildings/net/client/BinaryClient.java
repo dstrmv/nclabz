@@ -19,9 +19,10 @@ public class BinaryClient {
             int spaces;
             double area;
             int rooms;
+            String type;
 
-            while (types.ready()) {
-                String type = types.readLine();
+            while ((type = types.readLine()) != null) {
+
                 System.out.println(type);
                 writer.println(type);
                 floors = Integer.parseInt(info.readLine());
@@ -41,7 +42,7 @@ public class BinaryClient {
                     }
                 }
             }
-
+            writer.println("PEPEGA");
             writer.flush();
             System.out.println("buildings are sent");
             String[] costs = readCosts(reader);
@@ -79,6 +80,7 @@ public class BinaryClient {
         String input = null;
         try {
             while ((input = bufferedReader.readLine()) != null ) {
+                if (input.equals("PEPEGA")) break;
                 costs.add(input);
             }
         } catch (IOException e) {
