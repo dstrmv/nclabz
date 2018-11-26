@@ -15,45 +15,48 @@ public class BinaryClient {
              BufferedReader types = new BufferedReader(new FileReader("buildingtypes.txt"));
         ) {
 
-            int floors;
-            int spaces;
-            double area;
-            int rooms;
-            String type;
-
-            while ((type = types.readLine()) != null) {
-
-                System.out.println(type);
-                writer.println(type);
-                floors = Integer.parseInt(info.readLine());
-                System.out.println(floors);
-                writer.println(floors);
-                for (int i = 0; i < floors; i++) {
-                    spaces = Integer.parseInt(info.readLine());
-                    writer.println(spaces);
-                    System.out.println(spaces);
-                    for (int j = 0; j < spaces; j++) {
-                        area = Double.parseDouble(info.readLine());
-                        System.out.println(area);
-                        writer.println(area);
-                        rooms = Integer.parseInt(info.readLine());
-                        writer.println(rooms);
-                        System.out.println(rooms);
-                    }
-                }
-            }
-            writer.println("PEPEGA");
-            writer.flush();
-            System.out.println("buildings are sent");
+            sendBuildingInfoTypesFromFile(writer, info, types);
+            //System.out.println("buildings are sent");
             String[] costs = readCosts(reader);
-            System.out.println("cost are readed");
+            //System.out.println("cost are readed");
             writeCostsToFile(costs);
-            System.out.println("writed to file");
-
+            //System.out.println("writed to file");
 
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    private static void sendBuildingInfoTypesFromFile(PrintWriter writer, BufferedReader info, BufferedReader types) throws IOException {
+        int floors;
+        int spaces;
+        double area;
+        int rooms;
+        String type;
+
+        while ((type = types.readLine()) != null) {
+
+            System.out.println(type);
+            writer.println(type);
+            floors = Integer.parseInt(info.readLine());
+            System.out.println(floors);
+            writer.println(floors);
+            for (int i = 0; i < floors; i++) {
+                spaces = Integer.parseInt(info.readLine());
+                writer.println(spaces);
+                System.out.println(spaces);
+                for (int j = 0; j < spaces; j++) {
+                    area = Double.parseDouble(info.readLine());
+                    System.out.println(area);
+                    writer.println(area);
+                    rooms = Integer.parseInt(info.readLine());
+                    writer.println(rooms);
+                    System.out.println(rooms);
+                }
+            }
+        }
+        writer.println("PEPEGA");
+        writer.flush();
     }
 
     private static void writeCostsToFile(String[] costs) {
