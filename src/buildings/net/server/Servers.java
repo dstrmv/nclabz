@@ -3,7 +3,6 @@ package buildings.net.server;
 import buildings.interfaces.Building;
 import buildings.interfaces.Floor;
 import buildings.interfaces.Space;
-import buildings.net.server.sequental.BuildingUnderArrestException;
 import util.Buildings;
 
 import java.io.*;
