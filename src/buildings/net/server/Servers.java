@@ -46,7 +46,7 @@ public class Servers {
         writer.flush();
     }
 
-    protected static double calculateCost(Building building) throws BuildingUnderArrestException {
+    public static double calculateCost(Building building) throws BuildingUnderArrestException {
         if (isArrested(building)) throw new BuildingUnderArrestException();
         return building.totalArea() * building.getCostCoef();
 
