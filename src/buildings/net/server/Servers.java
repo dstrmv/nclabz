@@ -90,4 +90,17 @@ public class Servers {
 
         return building;
     }
+
+    public static Object[] generateCosts(Building[] buildings) {
+        Object[] result = new Object[buildings.length];
+
+        for (int i = 0; i < result.length; i++) {
+            try {
+                result[i] = Servers.calculateCost(buildings[i]);
+            } catch (BuildingUnderArrestException e) {
+                result[i] = new BuildingUnderArrestException();
+            }
+        }
+        return result;
+    }
 }
