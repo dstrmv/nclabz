@@ -150,7 +150,7 @@ public class Buildings {
             building = buildingFactory.createBuilding(floors);
 
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new RuntimeException();
         }
 
         return building;
@@ -174,7 +174,6 @@ public class Buildings {
 
             }
         }
-
     }
 
     public static Building readBuilding(Scanner scanner) {

@@ -55,16 +55,18 @@ public class Main {
 
         ) {
 
+            Buildings.writeBuilding(building, pw);
+
             //Buildings.writeBuildings(new Building[] {building, officebuilding, hotel}, pw);
             //Buildings.writeBuildingsTypes(new Building[] {building, officebuilding, hotel}, pwt);
 
-            outputObject.writeObject(array);
-            try {
-                Building[] inputArray = (Building[]) inputObject.readObject();
-                System.out.println(Arrays.deepEquals(array, inputArray));
-            } catch (ClassNotFoundException e) {
-                e.printStackTrace();
-            }
+//            outputObject.writeObject(array);
+//            try {
+//                Building[] inputArray = (Building[]) inputObject.readObject();
+//                System.out.println(Arrays.deepEquals(array, inputArray));
+//            } catch (ClassNotFoundException e) {
+//                e.printStackTrace();
+//            }
 
 
         } catch (IOException e) {
