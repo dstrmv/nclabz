@@ -20,6 +20,7 @@ import java.io.*;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.Locale;
+import java.util.Scanner;
 import java.util.stream.Stream;
 
 public class Main {
@@ -47,15 +48,18 @@ public class Main {
         //System.out.println(Buildings.createFloor(flats[0], DwellingFloor.class));
 
 
-        try (PrintWriter pw = new PrintWriter(new FileWriter("buildinginfo.txt"));
+        try (
+                PrintWriter pw = new PrintWriter(new FileWriter("buildinginfo.txt"));
              PrintWriter pwt = new PrintWriter(new FileWriter("buildingtypes.txt"));
-             Reader in = new FileReader("buildinginfo.txt");
+             //Reader in = new FileReader("buildinginfo.txt");
              ObjectOutputStream outputObject = new ObjectOutputStream(new FileOutputStream("buildings.ser"));
              ObjectInputStream inputObject = new ObjectInputStream(new FileInputStream("buildings.ser"))
 
         ) {
 
+            //Scanner sc = new Scanner(new File("buildinginfo.txt"));
             Buildings.writeBuilding(building, pw);
+            //System.out.println(Buildings.readBuilding(sc));
 
             //Buildings.writeBuildings(new Building[] {building, officebuilding, hotel}, pw);
             //Buildings.writeBuildingsTypes(new Building[] {building, officebuilding, hotel}, pwt);
